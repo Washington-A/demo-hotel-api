@@ -1,7 +1,6 @@
-package com.example.demohotelapi.domain.hotel;
+package com.example.demohotelapi.entity;
 
 import jakarta.persistence.*;
-import java.util.UUID;
 
 import lombok.*;
 
@@ -12,9 +11,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HotelModel  {
-
-
+public class Hotel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
@@ -22,7 +19,5 @@ public class HotelModel  {
     private String cidade;
     private int qtdQuartos;
     private boolean isDisponible;
-
-
 }
 
