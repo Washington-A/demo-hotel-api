@@ -10,6 +10,6 @@ import lombok.*;
 public class HotelResponseDto {
     private String id;
     private String nome;
-    private String cidade;
-    private int qtdQuartos;
+    private String localizacao;
+
 }

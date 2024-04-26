@@ -28,8 +28,14 @@ public class HotelController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HotelResponseDto> getById(@PathVariable String id) {
+    public ResponseEntity<HotelResponseDto> getById(@PathVariable int id) {
         Hotel hotel = hotelService.buscarPorId(id);
         return ResponseEntity.ok(HotelMapper.toDto(hotel));
+    }
+
+    @GetMapping("/localizacao/{local}")
+    public ResponseEntity<List<HotelResponseDto>> getById(@PathVariable String local) {
+        List<Hotel> hoteis = hotelService.buscarPorLocalizacao(local);
+        return ResponseEntity.ok(HotelMapper.toListDto(hoteis));
     }
 }

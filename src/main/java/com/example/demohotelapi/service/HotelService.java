@@ -22,10 +22,20 @@ public class HotelService {
         }
         return hoteis;
     }
+
     @Transactional(readOnly = true)
-    public Hotel buscarPorId(String id) {
+    public Hotel buscarPorId(int id) {
         return hotelRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException(String.format("Hotel id=%s não encontrado", id))
         );
+    }
+
+    @Transactional(readOnly = true)
+    public List<Hotel> buscarPorLocalizacao(String local) {
+        List<Hotel> hoteis = hotelRepository.findByLocation(local);
+        if (hoteis.isEmpty()) {
+            throw new EntityNotFoundException("Nenhum hotel encontrado");
+        }
+        return hoteis;
     }
 }
