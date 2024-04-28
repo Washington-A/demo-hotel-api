@@ -1,10 +1,14 @@
 package com.example.demohotelapi.web.controller;
 
 import com.example.demohotelapi.entity.Hotel;
-import com.example.demohotelapi.repository.HotelRepository;
 import com.example.demohotelapi.service.HotelService;
 import com.example.demohotelapi.web.dto.HotelResponseDto;
 import com.example.demohotelapi.web.dto.mapper.HotelMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,8 +38,17 @@ public class HotelController {
         return ResponseEntity.ok(HotelMapper.toDto(hotel));
     }
 
+
+    @Operation(summary = "Listar hotéis por localização", description = "Listar hotéis por localização",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista os hotéis com base em um termo que contenha parcialmente o nome da localização",
+                            content = @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class))))
+            }
+    )
     @GetMapping("/localizacao/{local}")
-    public ResponseEntity<List<HotelResponseDto>> getByLocal(@PathVariable String local) {
+
+    public ResponseEntity<List<HotelResponseDto>> getByLocation(@PathVariable String local) {
         List<Hotel> hoteis = hotelService.buscarPorLocalizacao(local);
         return ResponseEntity.ok(HotelMapper.toListDto(hoteis));
     }
