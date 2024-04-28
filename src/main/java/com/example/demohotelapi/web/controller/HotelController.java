@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @RestController
@@ -46,8 +47,15 @@ public class HotelController {
             }
     )
     @GetMapping("/localizacao/{local}")
+
     public ResponseEntity<List<HotelResponseDto>> getByLocation(@PathVariable String local) {
         List<Hotel> hoteis = hotelService.buscarPorLocalizacao(local);
+        return ResponseEntity.ok(HotelMapper.toListDto(hoteis));
+    }
+
+    @GetMapping("/disponibilidade/{data}")
+    public ResponseEntity<List<HotelResponseDto>> getByAvailability(@PathVariable LocalDate data) {
+        List<Hotel> hoteis = hotelService.buscarPorDisponibilidade(data);
         return ResponseEntity.ok(HotelMapper.toListDto(hoteis));
     }
 }
