@@ -17,5 +17,5 @@ public class Quarto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
-    private int hotelId;
+    private int hotel_id;
 }

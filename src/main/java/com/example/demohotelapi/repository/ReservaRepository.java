@@ -17,14 +17,11 @@ public class ReservaRepository {
     public List<Reserva> getByHotelAndData(LocalDate data, int hotelId){
         String query = "FROM Reserva r WHERE :dataParametro BETWEEN r.checkIn AND r.checkOut AND r.status <> 'finalizada' AND r.hotelId = :hotelId";
 
-
         TypedQuery<Reserva> typedQuery = entityManager.createQuery(query, Reserva.class);
 
         typedQuery.setParameter("dataParametro", data);
         typedQuery.setParameter("hotelId", hotelId);
 
         return typedQuery.getResultList();
-
-
     }
 }

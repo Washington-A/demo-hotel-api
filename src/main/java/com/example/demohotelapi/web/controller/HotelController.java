@@ -25,7 +25,13 @@ import java.time.LocalDate;
 public class HotelController {
 
     private final HotelService hotelService;
-
+    @Operation(summary = "Listar todos os hotéis",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Lista com todos os hotéis cadastrados",
+                            content = @Content(mediaType = "application/json",
+                                    array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class))))
+            }
+    )
     @GetMapping
     public ResponseEntity<List<HotelResponseDto>> getAll() {
         List<Hotel> hoteis = hotelService.buscarTodos();
@@ -47,7 +53,6 @@ public class HotelController {
             }
     )
     @GetMapping("/localizacao/{local}")
-
     public ResponseEntity<List<HotelResponseDto>> getByLocation(@PathVariable String local) {
         List<Hotel> hoteis = hotelService.buscarPorLocalizacao(local);
         return ResponseEntity.ok(HotelMapper.toListDto(hoteis));

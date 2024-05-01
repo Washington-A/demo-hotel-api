@@ -22,7 +22,5 @@ public class Reserva {
     private int quartoId;
     private int hotelId;
     private String status;
-
-
 }
 
