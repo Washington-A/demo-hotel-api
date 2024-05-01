@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 public class HotelResponseDto {
-    private String id;
+    private int id;
     private String nome;
     private String localizacao;
     private List<QuartoResponseDto> quartos;
