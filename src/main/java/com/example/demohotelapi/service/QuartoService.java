@@ -15,8 +15,8 @@ import java.util.List;
 public class QuartoService {
     private final QuartoRepository quartoRepository;
     @Transactional(readOnly = true)
-    public List<Quarto> buscarPorDisponibilidade(LocalDate checkIn) {
-        List<Quarto> quartos = quartoRepository.findByAvailability(checkIn);
+    public List<Quarto> buscarPorDisponibilidade(LocalDate checkIn, LocalDate checkOut) {
+        List<Quarto> quartos = quartoRepository.findByAvailability(checkIn, checkOut);
         if (quartos.isEmpty()) {
             throw new EntityNotFoundException("Nenhum quarto encontrado");
         }

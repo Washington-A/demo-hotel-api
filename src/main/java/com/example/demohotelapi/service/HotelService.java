@@ -46,11 +46,11 @@ public class HotelService {
     }
 
     @Transactional(readOnly = true)
-    public List<Hotel> buscarPorDisponibilidade(LocalDate checkIn){
+    public List<Hotel> buscarPorDisponibilidade(LocalDate checkIn, LocalDate checkOut){
 
         List<Hotel> hoteis = hotelRepository.findAll();
         List<Hotel> hoteisDisponiveis = new ArrayList<>();
-        List<Quarto> quartosDisponiveis = quartoService.buscarPorDisponibilidade(checkIn);
+        List<Quarto> quartosDisponiveis = quartoService.buscarPorDisponibilidade(checkIn, checkOut);
 
         if(quartosDisponiveis.isEmpty()){
             return Collections.emptyList();

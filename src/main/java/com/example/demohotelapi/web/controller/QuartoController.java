@@ -21,9 +21,9 @@ public class QuartoController {
 
     private final QuartoService quartoService;
 
-    @GetMapping("/disponibilidade/{data}")
-    public ResponseEntity<List<QuartoResponseDto>> getByAvailability(@PathVariable LocalDate data) {
-        List<Quarto> quartos = quartoService.buscarPorDisponibilidade(data);
+    @GetMapping("/disponibilidade/{checkIn},{checkOut}")
+    public ResponseEntity<List<QuartoResponseDto>> getByAvailability(@PathVariable LocalDate checkIn, @PathVariable LocalDate checkOut) {
+        List<Quarto> quartos = quartoService.buscarPorDisponibilidade(checkIn, checkOut);
         return ResponseEntity.ok(QuartoMapper.toListDto(quartos));
     }
 }

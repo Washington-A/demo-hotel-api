@@ -58,9 +58,9 @@ public class HotelController {
         return ResponseEntity.ok(HotelMapper.toListDto(hoteis));
     }
 
-    @GetMapping("/disponibilidade/{data}")
-    public ResponseEntity<List<HotelResponseDto>> getByAvailability(@PathVariable LocalDate data) {
-        List<Hotel> hoteis = hotelService.buscarPorDisponibilidade(data);
+    @GetMapping("/disponibilidade/{checkIn},{checkOut}")
+    public ResponseEntity<List<HotelResponseDto>> getByAvailability(@PathVariable LocalDate checkIn, @PathVariable LocalDate checkOut) {
+        List<Hotel> hoteis = hotelService.buscarPorDisponibilidade(checkIn,checkOut);
         return ResponseEntity.ok(HotelMapper.toListDto(hoteis));
     }
 }
