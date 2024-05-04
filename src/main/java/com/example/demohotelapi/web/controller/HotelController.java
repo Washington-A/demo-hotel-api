@@ -11,10 +11,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.time.LocalDate;
@@ -33,7 +31,7 @@ public class HotelController {
 
                     @ApiResponse(responseCode = "400", description = "Nenhum hotel cadastrado",
                             content = @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class))))
+                                    array = @ArraySchema(schema = @Schema(implementation = Error.class))))
 
             }
     )
@@ -50,9 +48,9 @@ public class HotelController {
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class)))),
 
-                    @ApiResponse(responseCode = "500", description = "Hotel não encontrado",
+                    @ApiResponse(responseCode = "404", description = "Hotel não encontrado",
                             content = @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class))))
+                                    array = @ArraySchema(schema = @Schema(implementation = Error.class))))
 
             }
     )
@@ -77,7 +75,7 @@ public class HotelController {
     }
 
 
-    @Operation(summary = "Listar hotéis por dispinibilidade", description = "Listar hotéis pela disponibilidade de quartos",
+    @Operation(summary = "Listar hotéis por disponibilidade", description = "Listar hotéis pela disponibilidade de quartos",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Lista os hotéis com base na disponibilidade de quartos em uma data específica",
                             content = @Content(mediaType = "application/json",
@@ -85,7 +83,7 @@ public class HotelController {
 
                     @ApiResponse(responseCode = "400", description = "Erro na busca, a data fornecida pode ser inválida",
                             content = @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class))))
+                                    array = @ArraySchema(schema = @Schema(implementation = Error.class))))
             }
     )
     @GetMapping("/disponibilidade/{checkIn},{checkOut}")

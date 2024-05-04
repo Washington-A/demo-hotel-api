@@ -3,11 +3,12 @@ package com.example.demohotelapi.service;
 import com.example.demohotelapi.entity.Hotel;
 import com.example.demohotelapi.entity.Quarto;
 import com.example.demohotelapi.repository.HotelRepository;
-import com.example.demohotelapi.repository.ReservaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,9 +32,13 @@ public class HotelService {
 
     @Transactional(readOnly = true)
     public Hotel buscarPorId(int id) {
-        return hotelRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException(String.format("Hotel id=%s não encontrado", id))
-        );
+        try {
+            return hotelRepository.findById(id).orElseThrow(
+                    () -> new EntityNotFoundException(String.format("Hotel id=%s não encontrado", id))
+            );
+        } catch (EntityNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     @Transactional(readOnly = true)
