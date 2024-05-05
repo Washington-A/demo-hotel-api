@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,11 +27,6 @@ public class HotelController {
                     @ApiResponse(responseCode = "200", description = "Lista com todos os hotéis cadastrados",
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class)))),
-
-                    @ApiResponse(responseCode = "400", description = "Nenhum hotel cadastrado",
-                            content = @Content(mediaType = "application/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Error.class))))
-
             }
     )
     @GetMapping
