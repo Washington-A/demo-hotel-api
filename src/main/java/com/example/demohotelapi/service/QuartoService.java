@@ -1,8 +1,8 @@
 package com.example.demohotelapi.service;
 
 import com.example.demohotelapi.entity.Quarto;
+import com.example.demohotelapi.exception.HotelUnavailableException;
 import com.example.demohotelapi.repository.QuartoRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,8 +17,8 @@ public class QuartoService {
     @Transactional(readOnly = true)
     public List<Quarto> buscarPorDisponibilidade(LocalDate checkIn, LocalDate checkOut) {
         List<Quarto> quartos = quartoRepository.findByAvailability(checkIn, checkOut);
-        if (quartos.isEmpty()) {
-            throw new EntityNotFoundException("Nenhum quarto encontrado");
+        if(quartos.isEmpty()){
+            throw new HotelUnavailableException("Não há hotéis disponíveis nessa data.");
         }
         return quartos;
     }

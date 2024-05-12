@@ -32,7 +32,7 @@ public class QuartoController {
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = QuartoResponseDto.class)))),
 
-                    @ApiResponse(responseCode = "400", description = "Erro na busca, a data fornecida pode ser inválida",
+                    @ApiResponse(responseCode = "404", description = "Não há quarto disponível",
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Error.class))))
             }

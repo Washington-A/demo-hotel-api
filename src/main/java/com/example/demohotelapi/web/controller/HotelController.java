@@ -75,7 +75,7 @@ public class HotelController {
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = HotelResponseDto.class)))),
 
-                    @ApiResponse(responseCode = "400", description = "Erro na busca, a data fornecida pode ser inválida",
+                    @ApiResponse(responseCode = "404", description = "Não há hotel disponível",
                             content = @Content(mediaType = "application/json",
                                     array = @ArraySchema(schema = @Schema(implementation = Error.class))))
             }
